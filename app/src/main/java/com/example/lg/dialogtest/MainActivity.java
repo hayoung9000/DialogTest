@@ -1,5 +1,6 @@
 package com.example.lg.dialogtest;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    String[] itemArr= {"김승아","암내","극혐","무좀"};
+    String[] itemArr= {"김승아","치마","등골","극혐"};
+    Button butDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button butDialog=(Button)findViewById(R.id.but_dialog);
+        butDialog=(Button)findViewById(R.id.but_dialog);
         butDialog.setOnClickListener(this);
     }
 
@@ -22,8 +24,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setTitle("첫번째 다이얼로그");
         dialog.setIcon(R.drawable.like);
    //   dialog.setMessage("여기는 메시지를 쓰는 곳입니다");
-        dialog.setItems(itemArr,null);
-        dialog.setPositiveButton("Ok",null);
+   //   단순목록
+      /*  dialog.setItems(itemArr, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                butDialog.setText(itemArr[i]);
+            }
+        });*/
+  // 라디오 버튼 목록
+        dialog.setSingleChoiceItems(itemArr,0,new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                butDialog.setText(itemArr[i]);
+            }
+        });
+  //    dialog.setPositiveButton("Ok",null);
         dialog.show();
     }
 }
